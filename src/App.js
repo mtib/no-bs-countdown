@@ -47,7 +47,7 @@ class CountDown extends Component {
     this.state = {
       currentTime: new Date(),
     }
-    this.tickInterval = setInterval(() => this.tick(), 10);
+    this.tickInterval = setInterval(() => this.tick(), 9);
   }
 
   tick() {
@@ -130,20 +130,22 @@ class ParsedTime extends Component {
     const seconds = Math.floor(diff / (1000)) % 60;
     const millis = Math.floor(diff) % 1000;
     return (<span>
-      <OptionalTime value={days} unit="days" />
-      <OptionalTime value={hours} unit="h" />
-      <OptionalTime value={minutes} unit="min" />
-      <OptionalTime value={seconds} unit="s" />
+      <OptionalTime value={days} unit="days" above={0} />
+      <OptionalTime value={hours} unit="h" above={days} />
+      <OptionalTime value={minutes} unit="min" above={days + hours} />
+      <OptionalTime value={seconds} unit="s" above={days + hours + minutes} />
       <code>{millis.toString().padStart(3, "0")}</code> ms</span>)
   }
 }
 
 class OptionalTime extends Component {
   render() {
-    if (this.props.value > 0) {
+    if (this.props.value > 0 && this.props.above === 0) {
       return (
         <span><code>{this.props.value}</code> {this.props.unit} </span>
       );
+    } else if (this.props.above > 0) {
+      return (<span><code>{this.props.value.toString().padStart(2, "0")}</code> {this.props.unit} </span>)
     } else {
       return (<span></span>);
     }
