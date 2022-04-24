@@ -32,8 +32,23 @@ const Controls = () => {
     }, [throttledSync]);
 
     return (
-        <Box>
-            <TextField value={title} onChange={handleTitleChange} label="Title" />
+        <Box
+            sx={{
+                display: 'flex',
+                gap: '10px',
+                width: '100%',
+                paddingX: '20px',
+                flexWrap: 'wrap',
+                '& > *': {
+                    flexGrow: 1,
+                },
+            }}
+        >
+            <TextField
+                value={title}
+                onChange={handleTitleChange}
+                label="Title"
+            />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
                     value={parsedDate}

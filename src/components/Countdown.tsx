@@ -14,6 +14,7 @@ const Countdown = () => {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 height: '100vh',
+                paddingY: '20px',
             }}
         >
             <Title title={params.title} />
