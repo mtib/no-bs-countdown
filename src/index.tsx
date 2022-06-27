@@ -18,7 +18,7 @@ root.render(
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <Routes>
-          <Route path="/" element={<Countdown />} />
+          <Route path="*" element={<Countdown />} />
         </Routes>
       </ThemeProvider>
     </HashRouter>
