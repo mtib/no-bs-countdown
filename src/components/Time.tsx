@@ -4,7 +4,7 @@ import { get } from 'lodash';
 
 export type TimeProps = {
     target: Date,
-}
+};
 
 export const SECONDS_MS = 1000;
 export const MINUTE_MS = SECONDS_MS * 60;
@@ -12,7 +12,7 @@ export const HOUR_MS = MINUTE_MS * 60;
 export const DAY_MS = HOUR_MS * 24;
 export const DIVISORS = [DAY_MS, HOUR_MS, MINUTE_MS, SECONDS_MS, 1] as const;
 
-const TimeComponent: React.FC<{ unit: string, value: number, pad?: number }> = ({ unit, value, pad = 0 }) => {
+const TimeComponent: React.FC<{ unit: string, value: number, pad?: number; }> = ({ unit, value, pad = 0 }) => {
     if (value === null) {
         return null;
     }
@@ -26,17 +26,26 @@ const TimeComponent: React.FC<{ unit: string, value: number, pad?: number }> = (
             <Typography
                 component="span"
                 variant="h2"
+                sx={{
+                    fontFamily: '"Sono"',
+                    fontVariationSettings: '"MONO" 1',
+                    fontWeight: 500,
+                }}
             >
                 {value.toString().padStart(pad, '0')}
             </Typography>
             <Typography
                 component="span"
                 variant="h2"
+                sx={{
+                    fontFamily: '"Sono"',
+                    fontVariationSettings: '"MONO" 0',
+                }}
             >
                 {unit}
             </Typography>
         </Box>
-    )
+    );
 };
 
 const Time: React.FC<TimeProps> = ({ target }) => {
@@ -50,14 +59,14 @@ const Time: React.FC<TimeProps> = ({ target }) => {
 
     React.useEffect(() => {
         intervalId.current = setInterval(() => {
-            setTimeDiffMs(computeDiffMs())
-        }, 79)
+            setTimeDiffMs(computeDiffMs());
+        }, 79);
         return () => {
             if (intervalId.current) {
                 clearInterval(intervalId.current);
                 intervalId.current = null;
             }
-        }
+        };
     }, [computeDiffMs]);
 
     const [days, hours, minutes, seconds, millis] = React.useMemo(() => {
@@ -68,7 +77,7 @@ const Time: React.FC<TimeProps> = ({ target }) => {
             rawDays + rawHours + rawMinutes === 0 ? null : rawMinutes,
             rawDays + rawHours + rawMinutes + rawSeconds === 0 ? null : rawSeconds,
             rawMillis,
-        ] as const
+        ] as const;
     }, [timeDiffMs]);
 
     return (
@@ -80,13 +89,13 @@ const Time: React.FC<TimeProps> = ({ target }) => {
                 gap: '10px',
             }}
         >
-            <TimeComponent unit="days" value={days} />
-            <TimeComponent unit="h" value={hours} />
-            <TimeComponent unit="min" value={minutes} />
+            <TimeComponent unit="days" value={days} pad={3} />
+            <TimeComponent unit="h" value={hours} pad={2} />
+            <TimeComponent unit="min" value={minutes} pad={2} />
             <TimeComponent unit="s" value={seconds} pad={2} />
             <TimeComponent unit="ms" value={millis} pad={3} />
         </Box>
-    )
+    );
 };
 
 export default Time;

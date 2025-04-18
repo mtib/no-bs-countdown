@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 
 export type TitleProps = {
     title: string,
-}
+};
 
 const Title: React.FC<TitleProps> = ({ title }) => (
     <Typography
@@ -11,6 +11,10 @@ const Title: React.FC<TitleProps> = ({ title }) => (
         textOverflow="ellipsis"
         overflow="hidden"
         width="100%"
+        sx={{
+            fontFamily: '"Sono"',
+            fontVariationSettings: '"MONO" 0',
+        }}
     >
         {title}
     </Typography>

@@ -8,6 +8,15 @@ const darkTheme = createTheme({
   palette: {
     mode: 'dark',
   },
+  typography: {
+    fontFamily: '"Sono", sans-serif',
+    h1: {
+      fontFamily: '"Sono", sans-serif',
+    },
+    h2: {
+      fontFamily: '"Sono", sans-serif',
+    },
+  },
 });
 
 const container = document.getElementById('root');
