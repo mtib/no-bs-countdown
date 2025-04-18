@@ -19,9 +19,15 @@
 .env.production.local
 
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# yarn-debug.log*
+# yarn-error.log*
+pnpm-debug.log*
+
 .parcel-cache
-.yarn
+# .yarn
+
+# pnpm specific
+.pnpm-store/
+pnpm-lock.yaml
 
 dist/

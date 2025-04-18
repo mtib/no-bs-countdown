@@ -4,27 +4,27 @@
   "private": true,
   "homepage": "https://mtib.github.io/no-bs-countdown",
   "dependencies": {
-    "@date-io/date-fns": "^2.13.1",
-    "@emotion/react": "^11.9.0",
-    "@emotion/styled": "^11.8.1",
-    "@mui/icons-material": "^5.6.2",
-    "@mui/material": "^5.6.2",
-    "@mui/x-date-pickers": "^5.0.0-alpha.1",
-    "@types/lodash": "^4.14.182",
-    "date-fns": "^2.28.0",
-    "gh-pages": "^3.2.3",
+    "@date-io/date-fns": "^2.17.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.19",
+    "@mui/material": "^5.14.19",
+    "@mui/x-date-pickers": "^6.18.2",
+    "@types/lodash": "^4.14.202",
+    "date-fns": "^2.30.0",
+    "gh-pages": "^6.1.0",
     "lodash": "^4.17.21",
-    "parcel": "^2.5.0",
-    "@parcel/packager-raw-url": "2.5.0",
-    "@parcel/transformer-webmanifest": "2.5.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-router-dom": "6"
+    "parcel": "^2.10.3",
+    "@parcel/packager-raw-url": "2.10.3",
+    "@parcel/transformer-webmanifest": "2.10.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.0"
   },
   "scripts": {
     "start": "parcel public/index.html",
     "build": "parcel build public/index.html --public-url='./' --dist-dir build",
-    "predeploy": "npm run build",
+    "predeploy": "pnpm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
@@ -45,5 +45,9 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=10"
+  }
 }
