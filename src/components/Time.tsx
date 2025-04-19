@@ -26,6 +26,7 @@ const TimeComponent: React.FC<TimeComponentProps> = React.memo(({ unit, value, p
                 variant="h1"
                 sx={{
                     fontFamily: '"Sono"',
+                    fontWeight: 500,
                     fontVariationSettings: '"MONO" 1',
                 }}
             >
