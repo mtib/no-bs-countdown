@@ -7,27 +7,39 @@ import * as React from "react";
 import useParams from "../hooks/useParams";
 import { parseDate } from "../utils/datestring";
 
-const Controls = () => {
+const Controls: React.FC = () => {
     const [params, setParams] = useParams();
 
     const [title, setTitle] = React.useState(params.title);
     const [parsedDate, setParsedDate] = React.useState(params.parsed);
 
+    // Optimize with throttle wrapped in useCallback
+    const throttledSync = React.useCallback(
+        throttle(() => {
+            if (
+                (!isNaN(parsedDate.getTime()) &&
+                    parsedDate.getTime() !== params.parsed.getTime()) ||
+                title !== params.title
+            ) {
+                const { time, date } = parseDate(parsedDate);
+                setParams({ time, date, title });
+            }
+        }, 50, { leading: true, trailing: true }),
+        [parsedDate, title, params, setParams]
+    );
 
-    const throttledSync = React.useCallback(throttle(() => {
-        if (!isNaN(parsedDate.getTime()) && parsedDate.getTime() !== params.parsed.getTime() || title !== params.title) {
-            const { time, date } = parseDate(parsedDate);
-            setParams({ time, date, title });
-        }
-    }, 50, { leading: true, trailing: true }), [parsedDate, title, params, setParams]);
+    const handleTitleChange = React.useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => setTitle(event.target.value),
+        []
+    );
 
-    const handleTitleChange = React.useCallback((event) => setTitle(event.target.value), []);
-
+    // Sync params to local state
     React.useEffect(() => {
         setTitle(params.title);
         setParsedDate(params.parsed);
     }, [params]);
 
+    // Trigger throttled sync when inputs change
     React.useEffect(() => {
         throttledSync();
     }, [throttledSync]);
@@ -49,11 +61,14 @@ const Controls = () => {
                 value={title}
                 onChange={handleTitleChange}
                 label="Title"
+                inputProps={{
+                    'aria-label': 'Countdown title'
+                }}
             />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
                     value={parsedDate}
-                    onChange={setParsedDate}
+                    onChange={(date) => date && setParsedDate(date)}
                     label="Date & Time"
                 />
             </LocalizationProvider>
@@ -61,4 +76,4 @@ const Controls = () => {
     );
 };
 
-export default Controls;
+export default React.memo(Controls);

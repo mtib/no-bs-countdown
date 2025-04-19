@@ -4,6 +4,7 @@ import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import Countdown from './components/Countdown';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 
+// Create a custom dark theme for the application
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -33,7 +34,10 @@ const darkTheme = createTheme({
   },
 });
 
+// Create root element and render app
 const container = document.getElementById('root');
+if (!container) throw new Error('Root element not found in the document');
+
 const root = ReactDOM.createRoot(container);
 root.render(
   <React.StrictMode>
@@ -45,5 +49,5 @@ root.render(
         </Routes>
       </ThemeProvider>
     </HashRouter>
-  </React.StrictMode >,
+  </React.StrictMode>,
 );

@@ -1,23 +1,28 @@
 import { Typography } from "@mui/material";
+import * as React from "react";
 
-export type TitleProps = {
-    title: string,
+interface TitleProps {
+    title: string;
+}
+
+const Title: React.FC<TitleProps> = ({ title }) => {
+    return (
+        <Typography
+            variant="h3"
+            component="h1"
+            align="center"
+            gutterBottom
+            sx={{
+                fontWeight: 600,
+                padding: '0 20px',
+                wordBreak: 'break-word',
+                maxWidth: '100%',
+                textAlign: 'center',
+            }}
+        >
+            {title}
+        </Typography>
+    );
 };
 
-const Title: React.FC<TitleProps> = ({ title }) => (
-    <Typography
-        variant="h1"
-        textAlign="center"
-        textOverflow="ellipsis"
-        overflow="hidden"
-        width="100%"
-        sx={{
-            fontFamily: '"Sono"',
-            fontVariationSettings: '"MONO" 0',
-        }}
-    >
-        {title}
-    </Typography>
-);
-
-export default Title;
+export default React.memo(Title);
