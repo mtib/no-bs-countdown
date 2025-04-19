@@ -1,5 +1,8 @@
 // Service worker registration script
 (() => {
+    // App configuration
+    const APP_BASE_PATH = '/no-bs-countdown/';
+
     // Check if we're in development mode (pnpm start or pnpm dev)
     const isDevelopment = () => {
         // Check for development hostnames or query parameters
@@ -15,7 +18,11 @@
     const registerServiceWorker = () => {
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
+                // Register the service worker with the correct path
+                // The path is relative to the domain, not the current page
+                navigator.serviceWorker.register(`${APP_BASE_PATH}sw.js`, {
+                    scope: APP_BASE_PATH
+                })
                     .then(registration => {
                         console.log('ServiceWorker registration successful with scope: ', registration.scope);
                     })
@@ -29,7 +36,7 @@
     // Unregister any existing service worker
     const unregisterServiceWorker = async () => {
         if ('serviceWorker' in navigator) {
-            const registration = await navigator.serviceWorker.getRegistration();
+            const registration = await navigator.serviceWorker.getRegistration(APP_BASE_PATH);
             if (registration) {
                 await registration.unregister();
                 console.log('ServiceWorker unregistered for development mode');

@@ -1,4 +1,11 @@
 const CACHE_NAME = 'no-bs-countdown-cache-v1';
+const APP_BASE_PATH = '/no-bs-countdown/';
+
+// Helper function to check if a request is within our app's scope
+const isRequestInScope = (url) => {
+    const requestUrl = new URL(url, self.location.origin);
+    return requestUrl.pathname.startsWith(APP_BASE_PATH);
+};
 
 // Install event - cache resources
 self.addEventListener('install', (_) => {
@@ -23,6 +30,11 @@ self.addEventListener('activate', (event) => {
 
 // Fetch event - serve from cache or network
 self.addEventListener('fetch', (event) => {
+    // Only handle requests within our app's scope
+    if (!isRequestInScope(event.request.url)) {
+        return;
+    }
+
     event.respondWith(
         caches.match(event.request)
             .then((response) => {
