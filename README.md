@@ -17,7 +17,7 @@ I wanted a countdown app that doesn't show ads. So I made one with React to refr
 - TypeScript
 - Material-UI components
 - React Router for URL-based state management
-- Parcel for building and bundling
+- Vite
 
 ## Usage
 
