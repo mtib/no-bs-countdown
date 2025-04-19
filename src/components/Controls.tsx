@@ -1,5 +1,6 @@
 import { Box, TextField } from "@mui/material";
-import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { throttle } from "lodash";
 import * as React from "react";
@@ -15,17 +16,17 @@ const Controls = () => {
 
     const throttledSync = React.useCallback(throttle(() => {
         if (!isNaN(parsedDate.getTime()) && parsedDate.getTime() !== params.parsed.getTime() || title !== params.title) {
-            const { time, date } = parseDate(parsedDate)
-            setParams({ time, date, title })
+            const { time, date } = parseDate(parsedDate);
+            setParams({ time, date, title });
         }
-    }, 50, { leading: true, trailing: true }), [parsedDate, title])
+    }, 50, { leading: true, trailing: true }), [parsedDate, title, params, setParams]);
 
     const handleTitleChange = React.useCallback((event) => setTitle(event.target.value), []);
 
     React.useEffect(() => {
         setTitle(params.title);
         setParsedDate(params.parsed);
-    }, [params])
+    }, [params]);
 
     React.useEffect(() => {
         throttledSync();
@@ -53,11 +54,11 @@ const Controls = () => {
                 <DateTimePicker
                     value={parsedDate}
                     onChange={setParsedDate}
-                    renderInput={(params) => <TextField {...params} label="Date & Time" />}
+                    label="Date & Time"
                 />
-            </LocalizationProvider  >
+            </LocalizationProvider>
         </Box>
-    )
-}
+    );
+};
 
 export default Controls;
